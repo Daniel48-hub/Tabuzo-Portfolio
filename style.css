@@ -1,0 +1,891 @@
+/* =========================================================
+   Portfolio stylesheet — "The Refereed Project Paper"
+   1. Design tokens (light + dark reading modes)
+   2. Base / reset
+   3. Layout helpers
+   4. Running head and masthead
+   5. Hero / Abstract / portrait plate
+   6. Bio facts
+   7. Projects / figure plates
+   8. Correspondence / contact
+   9. Responsive rules (@media)
+   ========================================================= */
+
+
+/* ---------- 1. Design tokens ---------- */
+
+/* Paper reading mode (default) */
+:root {
+    --paper: #eceee5;
+    --surface: #f8f9f3;
+    --plate: #e2e5d8;
+    --ink: #1c1a16;
+    --muted: #5d6052;
+    --line: #d2d6c6;
+    --line-strong: #99a089;
+    --accent: #8c3a24;
+    --accent-ink: #faf7f0;
+
+    --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+    --font-label: "DM Sans", "Segoe UI", system-ui, sans-serif;
+    --font-number: ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+    --radius-plate: 2px;
+
+    --header-offset: 88px; /* space kept clear for the running head */
+}
+
+/* Lamp-lit dark reading mode: applied when the toggle sets data-theme="dark" */
+:root[data-theme="dark"] {
+    --paper: #1a1712;
+    --surface: #221e17;
+    --plate: #26221a;
+    --ink: #ece5d8;
+    --muted: #a89f8c;
+    --line: #383226;
+    --line-strong: #574e3b;
+    --accent: #d98a66;
+    --accent-ink: #1a1712;
+}
+
+
+/* ---------- 2. Base / reset ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-padding-top: var(--header-offset);
+    scrollbar-color: var(--line-strong) transparent;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Selection and scrollbar carry the design too */
+::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+}
+
+p {
+    margin: 0;
+}
+
+ul,
+dl,
+dd,
+figure {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Visible keyboard focus for every interactive element */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+/* ---------- 3. Layout helpers ---------- */
+
+.container {
+    width: min(1080px, 100% - 3rem);
+    margin-inline: auto;
+}
+
+.section {
+    padding-block: 4rem 5.5rem;
+}
+
+/* Numbered section heading with a hairline running to the margin */
+.section__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.section__no {
+    font-family: var(--font-number);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.section__title::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--line);
+    transform: translateY(-0.3em);
+}
+
+.section__lead {
+    margin-top: 1rem;
+    max-width: 65ch;
+    color: var(--muted);
+}
+
+.icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-plate);
+    font-family: var(--font-label);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Ink stamp: the committed action */
+.btn--primary {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.btn--primary:hover {
+    box-shadow: 0 10px 22px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* Proof sheet: read it, then commit */
+.btn--ghost {
+    border-color: var(--line-strong);
+    background: var(--surface);
+}
+
+.btn--ghost:hover {
+    border-color: var(--accent);
+}
+
+
+/* ---------- 4. Running head and masthead ---------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--paper);
+    /* Double-rule edge: the second hairline sits 4px below the border */
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 4px 0 -3px var(--line);
+    transition: background-color 0.3s ease;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: min(1080px, 100% - 3rem);
+    margin-inline: auto;
+    height: 72px;
+}
+
+.nav__brand {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Wordmark must still read at sticker size */
+.nav__links {
+    display: flex;
+    gap: 0.25rem;
+    margin-left: auto;
+}
+
+.nav__link {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.5rem 0.85rem;
+}
+
+/* Unvisited sections read as dashed proof; the section in view is committed ink */
+.nav__link:hover {
+    color: var(--ink);
+    text-decoration: underline dashed;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 6px;
+}
+
+.nav__link.is-active {
+    color: var(--ink);
+    text-decoration: underline solid;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.theme-toggle__icon {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.theme-toggle__icon--sun {
+    display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--sun {
+    display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--moon {
+    display: none;
+}
+
+/* Journal masthead: hairline, running meta, then the double rule */
+.masthead {
+    position: relative;
+    margin-top: 0.5rem;
+    padding: 0.9rem 0 1.1rem;
+    border-top: 1px solid var(--line-strong);
+}
+
+.masthead__meta {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* The authored moment: the double rule draws itself once on arrival */
+.masthead::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 5px;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    transform-origin: left;
+    animation: rule-draw 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rule-draw {
+    from {
+        transform: scaleX(0);
+    }
+}
+
+
+/* ---------- 5. Hero / Abstract / portrait plate ---------- */
+
+/* The hero owns the first viewport: tight arrival, then a full screen of paper */
+.hero {
+    padding-block: 1.25rem 4rem;
+}
+
+@media (min-width: 901px) {
+    .hero {
+        min-height: calc(100svh - 73px); /* running head is 72px + its 1px border */
+    }
+}
+
+/* Two columns: all the text on the left, a large portrait on the right */
+.hero__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+}
+
+.hero__title {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 18ch;
+    font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.08;
+}
+
+.abstract__label {
+    font-family: var(--font-label);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.hero__intro {
+    margin-top: 1rem;
+    max-width: 48ch;
+    font-size: 1.2rem;
+    line-height: 1.75;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2rem;
+}
+
+/* A plate: the paper's framed illustration, hairline inner frame */
+.plate {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-plate);
+    padding: 0.6rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease, border-color 0.2s ease;
+}
+
+.plate:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.45);
+}
+
+.plate img {
+    border: 1px solid var(--line);
+}
+
+.plate__caption {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* The portrait plate fills the right column but holds to the first viewport:
+   its width is bounded by the screen height (4:5 photo plus caption and padding),
+   so the whole picture shows without scrolling */
+.hero__photo {
+    width: min(100%, calc((100svh - 15rem) * 0.8), 540px);
+    justify-self: end;
+}
+
+
+/* ---------- 6. About me / bio facts ---------- */
+
+/* About owns the whole screen on desktop, like a page of its own.
+   It lands just under the running head, so the height is the screen minus that offset. */
+.about {
+    padding-block: clamp(1.25rem, 4vh, 2.5rem);
+}
+
+/* The container keeps its own width and auto margins, so it stays centred */
+@media (min-width: 901px) {
+    .about {
+        display: flex;
+        align-items: center;
+        min-height: calc(100svh - var(--header-offset));
+    }
+}
+
+.about__grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3.5rem;
+    align-items: start;
+    margin-top: clamp(1rem, 3vh, 2rem);
+}
+
+.bio__body {
+    max-width: 62ch;
+}
+
+.bio__lead {
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+
+.bio__body p + p {
+    margin-top: 1rem;
+    color: var(--muted);
+}
+
+/* Facts stack as a ruled ledger beside the bio */
+.bio__facts {
+    display: grid;
+    gap: clamp(0.7rem, 2vh, 1.1rem);
+}
+
+/* What I do: three short ruled columns under the bio */
+.about__skills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-top: clamp(1.25rem, 4vh, 2.5rem);
+}
+
+.about__skill {
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-strong);
+}
+
+.about__skill h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.about__skill p {
+    margin-top: 0.4rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+/* Facts read as ruled ledger rows, not cards */
+.bio__fact {
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-strong);
+}
+
+.bio__fact dt {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.bio__fact dd {
+    margin-top: 0.35rem;
+    font-size: 1.02rem;
+}
+
+
+/* Short desktop screens: slightly smaller type so About still fits one screen */
+@media (min-width: 901px) and (max-height: 800px) {
+    .about .section__title {
+        font-size: 2rem;
+    }
+
+    .bio__lead {
+        font-size: 1.15rem;
+        line-height: 1.5;
+    }
+
+    .bio__body p {
+        font-size: 0.98rem;
+        line-height: 1.55;
+    }
+
+    .bio__fact dd {
+        margin-top: 0.15rem;
+        font-size: 0.98rem;
+    }
+
+    .about__skill p {
+        font-size: 0.92rem;
+        line-height: 1.5;
+    }
+}
+
+
+/* ---------- 7. Projects / figure plates ---------- */
+
+/* Compact section rhythm: the whole case-study row reads in one screen */
+.projects {
+    padding-block: 3rem 5.5rem;
+}
+
+.projects__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-top: 1.75rem;
+}
+
+/* Each project is a figure plate with its caption beneath */
+.card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-plate);
+    padding: 0.6rem;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.3s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: 0 18px 34px -22px rgba(0, 0, 0, 0.45);
+}
+
+/* Figure images crop to a bounded plate so all three fit one screen */
+.card__image {
+    width: 100%;
+    height: clamp(140px, 22vh, 230px);
+    object-fit: cover;
+    border: 1px solid var(--line);
+}
+
+.card__caption {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.6rem;
+    padding: 0.95rem 0.4rem 0.4rem;
+}
+
+/* The figure number rides in the caption line, not above the heading */
+.card__figure {
+    font-family: var(--font-number);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.card__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+
+.card__text {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+.card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.6rem;
+}
+
+.card__tags li {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--plate);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-plate);
+    padding: 0.3rem 0.55rem;
+}
+
+/* Committed proof: solid ink rule; it thickens on approach */
+.card__link {
+    margin-top: 0.9rem;
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    text-decoration: underline solid;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+}
+
+.card__link:hover {
+    text-decoration-thickness: 2px;
+}
+
+
+/* ---------- 8. Correspondence / contact ---------- */
+
+.site-footer {
+    padding-block: 4.5rem 2rem;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    transition: background-color 0.3s ease;
+}
+
+.site-footer:focus {
+    outline: none;
+}
+
+.footer__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+    gap: 3rem;
+}
+
+.footer__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.85rem;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.footer__lead {
+    margin-top: 1rem;
+    max-width: 45ch;
+    color: var(--muted);
+}
+
+.contact-list {
+    display: grid;
+}
+
+/* Dashed proof between rows; the row you approach commits to solid ink */
+.contact-list li + li {
+    border-top: 1px dashed var(--line-strong);
+}
+
+.contact-list__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.contact-list__link:hover {
+    transform: translateX(4px);
+}
+
+.contact-list__link:hover .contact-list__value {
+    text-decoration: underline solid;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+}
+
+.contact-list__label {
+    display: block;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.contact-list__value {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 1.05rem;
+    overflow-wrap: anywhere; /* long email never overflows on small screens */
+}
+
+/* Colophon row: copyright left, back-to-top text at the right margin */
+.footer__copy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+/* Back to top is text in the apparatus voice, not a button:
+   the dashed-underline proof on hover mirrors the running head */
+.back-to-top {
+    margin-left: auto; /* stays at the right margin even when the row wraps */
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+
+.back-to-top:hover {
+    color: var(--accent);
+    text-decoration: underline dashed;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+}
+
+
+/* ---------- 9. Responsive rules ---------- */
+
+/* Tablet and below */
+@media (max-width: 900px) {
+    .hero__layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .hero__photo {
+        width: min(100%, 420px); /* portrait sits under the text on small screens */
+        justify-self: start;
+    }
+
+    .about__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about__skills {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .projects__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+    :root {
+        --header-offset: 132px; /* running head wraps to two rows on phones */
+    }
+
+    .container,
+    .nav {
+        width: min(1080px, 100% - 2rem);
+    }
+
+    /* Wordmark and toggle on the first row, links on the second */
+    .nav {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0.75rem 0;
+        row-gap: 0.25rem;
+    }
+
+    .nav__links {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 0;
+    }
+
+    .nav__link {
+        padding: 0.35rem 0.5rem;
+    }
+
+    .section {
+        padding-block: 2.5rem 3.5rem;
+    }
+
+    /* The hero keeps its tight arrival on phones too */
+    .hero {
+        padding-block: 1rem 3rem;
+    }
+
+    .masthead {
+        margin-top: 0.5rem;
+    }
+
+    .hero__title {
+        margin-top: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero__actions .btn {
+        flex: 1 1 100%;
+    }
+
+    .projects__grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .btn:hover,
+    .plate:hover,
+    .card:hover,
+    .theme-toggle:hover,
+    .contact-list__link:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal portfolio of Prince Daniel Tabuzo, an Information Technology student building for the web.">
+    <title>Prince Daniel | Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles and script (separate files, no inline code) -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <!-- ===== 1. RUNNING HEAD / NAVIGATION ===== -->
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="nav__brand" href="#home">Prince Tabuzo</a>
+
+            <ul class="nav__links">
+                <li><a class="nav__link" href="#about">About Me</a></li>
+                <li><a class="nav__link" href="#projects">Projects</a></li>
+                <li><a class="nav__link" href="#contact">Contact</a></li>
+            </ul>
+
+            <!-- Dark / light mode toggle -->
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+                <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+                <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"/>
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ===== 2. HERO: text on the left, large portrait on the right ===== -->
+        <section class="section hero" id="home" aria-labelledby="hero-title">
+            <div class="container hero__layout">
+
+                <div class="hero__text">
+                    <!-- Journal masthead: running meta over a double rule -->
+                    <header class="masthead">
+                        <p class="masthead__meta">Information Technology &middot; Student Portfolio</p>
+                    </header>
+
+                    <h1 class="hero__title" id="hero-title">Prince Tabuzo. <br> I build things for the web.</h1>
+
+                    <h2 class="abstract__label">Abstract</h2>
+                    <p class="hero__intro">
+                        I'm an Information Technology student who turns system ideas into
+                        working, easy-to-use web applications.
+                    </p>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="#projects">View my projects</a>
+                        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+                    </div>
+                </div>
+
+                <figure class="hero__photo plate">
+                    <!-- Placeholder photo: replace images/profile-placeholder.svg with your own picture -->
+                    <img src="images/port.png" alt="Portrait placeholder for Prince Daniel" width="480" height="600">
+                    <figcaption class="plate__caption">Photo &mdash; Tabuzo, Prince Daniel M.</figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+        <!-- ===== 3. ABOUT ME: its own full-screen section ===== -->
+        <section class="section about" id="about" aria-labelledby="about-title">
+            <div class="container">
+                <h2 class="section__title" id="about-title"><span class="section__no" aria-hidden="true">1</span>About me</h2>
+
+                <div class="about__grid">
+                    <div class="bio__body">
+                        <p class="bio__lead">
+                            I study Information Technology and enjoy exploring the logic
+                            behind a system, the part that runs behind the screen.
+                        </p>
+                        <p>
+                            My coursework covers system analysis and design, software
+                            testing, and web development. In class I've documented an
+                            entity relationship diagram and system architecture for a
+                            disaster operations system, and written coverage analyses and
+                            test cases for a smart home security system.
+                        </p>
+                        <p>
+                            Java is my main language, and I use PHP, JavaScript, and MySQL
+                            to handle the logic and data of a system. I also build
+                            interfaces with HTML, CSS, React, and Flutter, but I enjoy the
+                            back end the most.
+                        </p>
+                    </div>
+
+                    <dl class="bio__facts">
+                        <div class="bio__fact">
+                            <dt>Studying</dt>
+                            <dd>Information Technology</dd>
+                        </div>
+                        <div class="bio__fact">
+                            <dt>Focus</dt>
+                            <dd>Back-end development and system logic</dd>
+                        </div>
+                        <div class="bio__fact">
+                            <dt>Tools</dt>
+                            <dd>Java, PHP, JavaScript, MySQL, Flutter, React, HTML, CSS, Git</dd>
+                        </div>
+                        <div class="bio__fact">
+                            <dt>Learning</dt>
+                            <dd>Back-end logic, one project at a time</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <ul class="about__skills" aria-label="What I do">
+                    <li class="about__skill">
+                        <h3>Plan</h3>
+                        <p>Turning a problem into entity relationship diagrams and system architecture.</p>
+                    </li>
+                    <li class="about__skill">
+                        <h3>Test</h3>
+                        <p>Checking decisions, conditions, and branches with test cases that cover them.</p>
+                    </li>
+                    <li class="about__skill">
+                        <h3>Build</h3>
+                        <p>Writing the logic behind a system in Java and PHP, with MySQL for the data.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== 3. PROJECTS / CASE STUDIES ===== -->
+        <section class="section projects" id="projects" aria-labelledby="projects-title">
+            <div class="container">
+                <h2 class="section__title" id="projects-title"><span class="section__no" aria-hidden="true">2</span>Projects</h2>
+                <p class="section__lead">A few things I've worked on in class and on my own.</p>
+
+                <div class="projects__grid">
+
+                    <figure class="card">
+                        <img class="card__image" src="images/project-1.svg" alt="Illustration of a hotel building beside a booking calendar for the Hotel Management and Reservation System" width="800" height="500" loading="lazy">
+                        <figcaption class="card__caption">
+                            <h3 class="card__title"><span class="card__figure">Fig. 1</span>Hotel Management and Reservation System</h3>
+                            <p class="card__text">
+                                A system that helps a hotel manage its rooms and guest
+                                bookings, from checking availability to confirming a
+                                reservation.
+                            </p>
+                            <ul class="card__tags">
+                                <li>Web system</li>
+                                <li>Reservations</li>
+                                <li>Database</li>
+                            </ul>
+                            <a class="card__link" href="https://github.com/Daniel48-hub" target="_blank" rel="noopener">View on GitHub</a>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="card">
+                        <img class="card__image" src="images/project-2.svg" alt="Illustration of a phone showing a map pin and lost and found item cards for BulSU HANAP" width="800" height="500" loading="lazy">
+                        <figcaption class="card__caption">
+                            <h3 class="card__title"><span class="card__figure">Fig. 2</span>BulSU HANAP</h3>
+                            <p class="card__text">
+                                A lost and found mobile application where students can
+                                report missing items and browse found ones in one place.
+                            </p>
+                            <ul class="card__tags">
+                                <li>Mobile app</li>
+                                <li>Lost and found</li>
+                                <li>Campus</li>
+                            </ul>
+                            <a class="card__link" href="https://github.com/Daniel48-hub" target="_blank" rel="noopener">View on GitHub</a>
+                        </figcaption>
+                    </figure>
+
+                    <figure class="card">
+                        <img class="card__image" src="images/project-3.svg" alt="Illustration of a wellbeing dashboard with a breathing circle, mood tracker and heartbeat line for Aceso" width="800" height="500" loading="lazy">
+                        <figcaption class="card__caption">
+                            <h3 class="card__title"><span class="card__figure">Fig. 3</span>Aceso</h3>
+                            <p class="card__text">
+                                A wellbeing application that supports daily self-care
+                                through mood tracking, breathing exercises, and simple
+                                progress views.
+                            </p>
+                            <ul class="card__tags">
+                                <li>Mobile app</li>
+                                <li>Wellbeing</li>
+                                <li>UI design</li>
+                            </ul>
+                            <a class="card__link" href="https://github.com/Daniel48-hub" target="_blank" rel="noopener">View on GitHub</a>
+                        </figcaption>
+                    </figure>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== 4. CORRESPONDENCE / CONTACT ===== -->
+    <footer class="site-footer" id="contact" aria-labelledby="contact-title" tabindex="-1">
+        <div class="container footer__inner">
+            <div class="footer__intro">
+                <h2 class="footer__title" id="contact-title"><span class="section__no" aria-hidden="true">3</span>Let's get in touch</h2>
+                <p class="footer__lead">Send me an email or find me on GitHub and Facebook.</p>
+            </div>
+
+            <ul class="contact-list">
+                <li>
+                    <a class="contact-list__link" href="mailto:tabuzoprince132@gmail.com">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>
+                            <span class="contact-list__label">Gmail</span>
+                            <span class="contact-list__value">tabuzoprince132@gmail.com</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="contact-list__link" href="https://github.com/Daniel48-hub" target="_blank" rel="noopener">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        <span>
+                            <span class="contact-list__label">GitHub</span>
+                            <span class="contact-list__value">Daniel48-hub</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="contact-list__link" href="https://www.facebook.com/princedaniel333/" target="_blank" rel="noopener">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                        <span>
+                            <span class="contact-list__label">Facebook</span>
+                            <span class="contact-list__value">Prince Tabuzo</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer__copy container">
+            <p>&copy; <span id="year">2026</span> Prince Tabuzo. All rights reserved.</p>
+            <a class="back-to-top" id="back-to-top" href="#">Back to top</a>
+        </div>
+    </footer>
+
+</body>
+</html>
